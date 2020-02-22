@@ -1,34 +1,26 @@
-import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:whats_app_de_berga/resources/cameraController.dart';
 import 'package:whats_app_de_berga/widgets/contactList.dart';
 import 'package:whats_app_de_berga/widgets/status.dart';
-import 'dart:async';
 
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
-  Future<List<CameraDescription>> camera() async {
-    final cameras = await availableCameras();
-    return cameras;
-  }
-
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'WP de berga',
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: MyHomePage(title: 'Flutter Demo Home Page', firstCamera: camera()),
+      home: MyHomePage(title: 'Flutter Demo Home Page'),
     );
   }
 }
 
 class MyHomePage extends StatefulWidget {
-  MyHomePage({Key key, this.title, this.firstCamera}) : super(key: key);
+  MyHomePage({Key key, this.title}) : super(key: key);
   final String title;
-  final firstCamera;
 
   @override
   _MyHomePageState createState() => _MyHomePageState();
@@ -57,7 +49,7 @@ class _MyHomePageState extends State<MyHomePage> {
           ),
           body: TabBarView(
             children: [
-              Container(child: Camera(camera: widget.firstCamera.first)),
+              Container(child: Camera()),
               Container(child: ContactList()),
               Container(child: Status()),
               Container(child: Icon(Icons.call)),
