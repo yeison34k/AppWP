@@ -3,7 +3,7 @@ import 'package:whats_app_de_berga/models/statusModel.dart';
 import 'package:whats_app_de_berga/resources/constants.dart';
 
 class Status extends StatefulWidget {
-  StatusModel status;
+  final StatusModel status;
 
   Status({this.status});
 

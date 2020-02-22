@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:whats_app_de_berga/models/chat.dart';
 
 class ChatScreean extends StatefulWidget {
-  Chat messageData;
+  final Chat messageData;
 
   ChatScreean(this.messageData);
 
