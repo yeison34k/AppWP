@@ -9,11 +9,11 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'WP de berga',
+      title: 'WP',
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: MyHomePage(title: 'Flutter Demo Home Page'),
+      home: MyHomePage(title: 'Wp'),
     );
   }
 }
@@ -42,9 +42,9 @@ class _MyHomePageState extends State<MyHomePage> {
             title: Text(widget.title),
             bottom: TabBar(tabs: [
               Tab(icon: Icon(Icons.photo_camera)),
-              Tab(text: "CHATS", icon: Icon(Icons.chat)),
-              Tab(text: "STATUS", icon: Icon(Icons.autorenew)),
-              Tab(text: "CALLS", icon: Icon(Icons.call)),
+              Tab(text: "CHATS"),
+              Tab(text: "STATUS"),
+              Tab(text: "CALLS"),
             ]),
           ),
           body: TabBarView(

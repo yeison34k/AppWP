@@ -1,11 +1,9 @@
-// Una pantalla que contiene una lista de cámaras y el directorio para almacenar imágenes.
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:camera/camera.dart';
 import 'package:path/path.dart';
 import 'dart:async';
 import 'package:path_provider/path_provider.dart';
+//import 'package:whats_app_de_berga/widgets/previewImageScreen.dart';
 
 
 List<CameraDescription> cameras;
@@ -52,7 +50,6 @@ class TakePictureScreenState extends State<Camera> {
 
     _controller = CameraController(cameraDescription, ResolutionPreset.high);
 
-    // If the controller is updated then update the UI.
     _controller.addListener(() {
       if (mounted) {
         setState(() {});
@@ -80,7 +77,7 @@ class TakePictureScreenState extends State<Camera> {
     super.dispose();
   }
 
- @override
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
      body: Container(
@@ -98,7 +95,7 @@ class TakePictureScreenState extends State<Camera> {
                 children: [
                   _cameraTogglesRowWidget(),
                   _captureControlRowWidget(context),
-                  Spacer()
+                 _gallery(),
                 ],
               ),
               SizedBox(height: 20.0)
@@ -109,7 +106,7 @@ class TakePictureScreenState extends State<Camera> {
     );
   }
 
- Widget _cameraPreviewWidget() {
+  Widget _cameraPreviewWidget() {
     if (_controller == null || !_controller.value.isInitialized) {
       return const Text(
         'Loading',
@@ -147,7 +144,7 @@ class TakePictureScreenState extends State<Camera> {
     );
   }
 
-   Widget _cameraTogglesRowWidget() {
+  Widget _cameraTogglesRowWidget() {
     if (cameras == null || cameras.isEmpty) {
       return Spacer();
     }
@@ -161,8 +158,7 @@ class TakePictureScreenState extends State<Camera> {
         child: FlatButton.icon(
             onPressed: _onSwitchCamera,
             icon: Icon(_getCameraLensIcon(lensDirection)),
-            label: Text(
-                "${lensDirection.toString().substring(lensDirection.toString().indexOf('.') + 1)}")),
+            label: Text("${lensDirection.toString().substring(lensDirection.toString().indexOf('.') + 1)}")),
       ),
     );
   }
@@ -188,27 +184,36 @@ class TakePictureScreenState extends State<Camera> {
     _initCameraController(selectedCamera);
   }
 
+
+  _gallery() {
+    return Expanded(
+      child: Align(
+        alignment: Alignment.centerRight,
+        child: FlatButton.icon(
+            onPressed: _onSwitchCamera,
+            icon: Icon(Icons.wallpaper),
+            label: Text("")),
+      ),
+    );
+  }
+
   void _onCapturePressed(context) async {
     try {
-      final path = join(
-        (await getTemporaryDirectory()).path,
-        '${DateTime.now()}.png',
-      );
-      print(path);
+      final path = join((await getTemporaryDirectory()).path,'${DateTime.now()}.png');
+      
       await _controller.takePicture(path);
-
-      Navigator.push(
+      /*Navigator.push(
         context,
         MaterialPageRoute(
           builder: null//(context) => PreviewImageScreen(imagePath: path),
         ),
-      );
+      );*/
     } catch (e) {
       print(e);
     }
   }
 
-   void _showCameraException(CameraException e) {
+  void _showCameraException(CameraException e) {
     String errorText = 'Error: ${e.code}\nError Message: ${e.description}';
     print(errorText);
 
@@ -216,7 +221,7 @@ class TakePictureScreenState extends State<Camera> {
   }
 }
 
-class DisplayPictureScreen extends StatelessWidget {
+/*class DisplayPictureScreen extends StatelessWidget {
   final String imagePath;
 
   const DisplayPictureScreen({Key key, this.imagePath}) : super(key: key);
@@ -228,4 +233,4 @@ class DisplayPictureScreen extends StatelessWidget {
       body: Image.file(File(imagePath)),
     );
   }
-}
+}*/
